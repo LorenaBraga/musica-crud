@@ -54,6 +54,8 @@ public class MusicaServiceImpl implements MusicaService {
 
     @Override
     public MusicaModel alterar(MusicaModel musicaModel) {
+        this.pesquisarMusicaOuGeraErro(musicaModel.getId());
+        this.validarCamposObrigatorios(musicaModel);
         return musicaRepository.save(musicaModel);
     }
 
