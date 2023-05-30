@@ -10,7 +10,7 @@ import java.util.Date;
 @Data
 public class MusicaDto {
     private String nomeBanda;
-
+    private Long id;
     private String nomeMusica;
 
     private String nomeAlbum;
