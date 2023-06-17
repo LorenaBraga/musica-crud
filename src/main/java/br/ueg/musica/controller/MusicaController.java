@@ -28,10 +28,10 @@ public class MusicaController {
     @PostMapping("/incluir")
     @Operation(description = "Método utilizado para realizar a inclusão de uma música", responses = {
             @ApiResponse(responseCode = "200", description = "Música Incluída", content = @Content(mediaType = "application/json"))})
-    public String incluir(@RequestBody MusicaDto musicaDto) {
+    public MusicaDto incluir(@RequestBody MusicaDto musicaDto) {
         MusicaModel musicaModel = musicaMapper.toModelo(musicaDto);
         musicaService.incluir(musicaModel);
-        return musicaDto.toString();
+        return musicaMapper.toMusicaDto(musicaModel);
     }
 
     @PutMapping(path = "/alterar/{id}")
