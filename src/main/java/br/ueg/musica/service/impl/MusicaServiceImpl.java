@@ -71,9 +71,15 @@ public class MusicaServiceImpl implements MusicaService {
         return musicaRepository.findAll();
     }
 
-    private MusicaModel pesquisarMusicaOuGeraErro(Long idMusica) {
+    public MusicaModel pesquisarMusicaOuGeraErro(Long idMusica) {
         MusicaModel musicaModel = musicaRepository.findById(idMusica).orElseThrow(() -> new IllegalArgumentException("Música não encontrada"));
         return musicaModel;
+    }
+
+    public MusicaModel favoritarMusica (Long idMusica) {
+        MusicaModel musicaModel = pesquisarMusicaOuGeraErro(idMusica);
+        musicaModel.setFavorito(musicaModel.getFavorito() == null || !musicaModel.getFavorito());
+        return musicaRepository.save(musicaModel);
     }
 
 }

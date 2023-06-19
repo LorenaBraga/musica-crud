@@ -21,4 +21,6 @@ public class MusicaModel {
     private String nomeAlbum;
     private LocalDate dataLancamento;
     private Long duracao;
+
+    private Boolean favorito;
 }

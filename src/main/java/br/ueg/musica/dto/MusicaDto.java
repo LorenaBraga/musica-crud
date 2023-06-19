@@ -18,4 +18,6 @@ public class MusicaDto {
     private LocalDate dataLancamento;
 
     private Long duracao;
+
+    private Boolean favorito;
 }

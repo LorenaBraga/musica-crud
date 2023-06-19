@@ -31,10 +31,10 @@ public class ApiWebConfig {
 	public CorsFilter corsFilter() {
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		CorsConfiguration config = new CorsConfiguration();
-		config.setAllowCredentials(true);
+		config.setAllowCredentials(false);
 		config.addAllowedOriginPattern("*");
-		/*config.addAllowedOrigin("*");
-		config.addAllowedHeader("*");*/
+		config.addAllowedOrigin("*");
+		config.addAllowedHeader("*");
 		config.addAllowedMethod(HttpMethod.GET);
 		config.addAllowedMethod(HttpMethod.POST);
 		config.addAllowedMethod(HttpMethod.PUT);

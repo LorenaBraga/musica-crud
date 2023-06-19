@@ -13,4 +13,7 @@ public interface MusicaService {
     public MusicaModel excluir(Long idMusica);
 
     public List<MusicaModel> listar();
+    public MusicaModel pesquisarMusicaOuGeraErro(Long idMusica);
+
+    public MusicaModel favoritarMusica (Long idMusica);
 }

@@ -59,4 +59,20 @@ public class MusicaController {
         List<MusicaModel> musicas = musicaService.listar();
         return musicaMapper.toListDto(musicas);
     }
+
+    @GetMapping(path = "/getbyID/{id}")
+    @Operation(description = "Método utilizado para buscar uma música pelo id informado", responses = {
+            @ApiResponse(responseCode = "200", description = "Buscar música", content = @Content(mediaType = "application/json"))})
+    public MusicaDto buscarPorId(@PathVariable(name = "id") Long idMusica){
+        MusicaModel musicaModel = musicaService.pesquisarMusicaOuGeraErro(idMusica);
+        return musicaMapper.toMusicaDto(musicaModel);
+    }
+
+    @GetMapping(path = "/favoritar/{id}")
+    @Operation(description = "Método utilizado para favoritar uma música pelo id informado", responses = {
+            @ApiResponse(responseCode = "200", description = "Favoritar música", content = @Content(mediaType = "application/json"))})
+    public MusicaDto favoritarMusica (@PathVariable(name = "id") Long idMusica){
+        MusicaModel musicaModel = musicaService.favoritarMusica(idMusica);
+        return musicaMapper.toMusicaDto(musicaModel);
+    }
 }
