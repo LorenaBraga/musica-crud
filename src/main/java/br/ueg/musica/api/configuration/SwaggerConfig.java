@@ -6,7 +6,7 @@
  *
  *
  */
-package br.ueg.musica.configuration;
+package br.ueg.musica.api.configuration;
 
 //import springfox.documentation.swagger2.annotations.EnableSwagger2;
 

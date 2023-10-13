@@ -1,5 +1,6 @@
 package br.ueg.musica.dto;
 
+import br.ueg.genero.dto.GeneroDto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -20,4 +21,6 @@ public class MusicaDto {
     private Long duracao;
 
     private Boolean favorito;
+
+    private GeneroDto genero;
 }

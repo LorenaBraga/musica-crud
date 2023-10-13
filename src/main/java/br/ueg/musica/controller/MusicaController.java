@@ -1,6 +1,7 @@
 package br.ueg.musica.controller;
 
 import br.ueg.musica.dto.MusicaDto;
+import br.ueg.musica.dto.MusicasFavoritasGeneroDto;
 import br.ueg.musica.mapper.MusicaMapper;
 import br.ueg.musica.model.MusicaModel;
 import br.ueg.musica.service.MusicaService;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "${app.api.base}")
+@RequestMapping(path = "${app.api.base}/musica")
 public class MusicaController {
 
     @Autowired
@@ -75,4 +76,12 @@ public class MusicaController {
         MusicaModel musicaModel = musicaService.favoritarMusica(idMusica);
         return musicaMapper.toMusicaDto(musicaModel);
     }
+
+    @GetMapping(path = "/listar favoritas")
+    @Operation(description = "Listagem Favoritas", responses = {
+            @ApiResponse(responseCode = "200", description = "Listagem favoritas", content = @Content(mediaType = "application/json"))})
+    public List<MusicasFavoritasGeneroDto> listarfavoritas() {
+        return musicaService.listarFavoritas();
+    }
+
 }

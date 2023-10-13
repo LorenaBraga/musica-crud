@@ -1,5 +1,6 @@
 package br.ueg.musica.service;
 
+import br.ueg.musica.dto.MusicasFavoritasGeneroDto;
 import br.ueg.musica.model.MusicaModel;
 
 import java.util.List;
@@ -16,4 +17,6 @@ public interface MusicaService {
     public MusicaModel pesquisarMusicaOuGeraErro(Long idMusica);
 
     public MusicaModel favoritarMusica (Long idMusica);
+
+    public List<MusicasFavoritasGeneroDto> listarFavoritas ();
 }
