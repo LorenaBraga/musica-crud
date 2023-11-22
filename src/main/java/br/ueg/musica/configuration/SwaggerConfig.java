@@ -6,13 +6,14 @@
  *
  *
  */
-package br.ueg.musica.api.configuration;
+package br.ueg.musica.configuration;
 
 //import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
 
 import br.ueg.musica.api.config.ApiSwaggerConfig;
+import br.ueg.prog.webi.api.config.ApiSwaggerConfig;
 import org.springframework.context.annotation.Configuration;
 
 

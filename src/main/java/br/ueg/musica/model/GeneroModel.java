@@ -1,4 +1,4 @@
-package br.ueg.genero.model;
+package br.ueg.musica.model;
 
 import br.ueg.musica.model.MusicaModel;
 import jakarta.persistence.*;

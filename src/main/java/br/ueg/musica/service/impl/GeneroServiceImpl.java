@@ -1,15 +1,11 @@
-package br.ueg.genero.service.impl;
+package br.ueg.musica.service.impl;
 
-import br.ueg.genero.model.GeneroModel;
-import br.ueg.genero.repository.GeneroRepository;
-import br.ueg.genero.service.GeneroService;
-import br.ueg.musica.model.MusicaModel;
-import br.ueg.musica.repository.MusicaRepository;
-import org.apache.logging.log4j.util.Strings;
+import br.ueg.musica.model.GeneroModel;
+import br.ueg.musica.repository.GeneroRepository;
+import br.ueg.musica.service.GeneroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 

@@ -1,12 +1,8 @@
 package br.ueg.musica.dto;
 
-import br.ueg.genero.dto.GeneroDto;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Data
 public class MusicaDto {

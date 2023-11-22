@@ -5,17 +5,17 @@ import br.ueg.musica.dto.MusicasFavoritasGeneroDto;
 import br.ueg.musica.model.MusicaModel;
 import br.ueg.musica.repository.MusicaRepository;
 import br.ueg.musica.service.MusicaService;
+import br.ueg.prog.webi.api.service.BaseCrudService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.util.*;
 
 @Service
-public class MusicaServiceImpl implements MusicaService {
+public class MusicaServiceImpl extends BaseCrudService<MusicaModel, Long, MusicaRepository> implements MusicaService {
 
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
@@ -24,12 +24,23 @@ public class MusicaServiceImpl implements MusicaService {
     @Autowired
     private MusicaRepository musicaRepository;
 
-    public void incluir(MusicaModel musicaModel) {
+    public MusicaModel incluir(MusicaModel musicaModel) {
         this.validarCamposObrigatorios(musicaModel);
         musicaRepository.save(musicaModel);
+        return musicaModel;
     }
 
-    private void validarCamposObrigatorios(MusicaModel musica) {
+    @Override
+    protected void prepararParaIncluir(MusicaModel entidade) {
+
+    }
+
+    @Override
+    protected void validarDados(MusicaModel entidade) {
+
+    }
+
+    public void validarCamposObrigatorios(MusicaModel musica) {
         if (Objects.isNull(musica)) {
             throw new IllegalArgumentException("Campo precisa ser preenchida");
         }

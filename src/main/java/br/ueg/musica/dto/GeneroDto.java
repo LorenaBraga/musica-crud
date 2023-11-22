@@ -1,4 +1,4 @@
-package br.ueg.genero.dto;
+package br.ueg.musica.dto;
 
 import br.ueg.musica.dto.MusicaDto;
 import lombok.Data;

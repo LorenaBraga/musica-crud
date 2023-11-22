@@ -1,7 +1,7 @@
-package br.ueg.genero.mapper;
+package br.ueg.musica.mapper;
 
-import br.ueg.genero.dto.GeneroDto;
-import br.ueg.genero.model.GeneroModel;
+import br.ueg.musica.dto.GeneroDto;
+import br.ueg.musica.model.GeneroModel;
 import org.mapstruct.Mapper;
 
 import java.util.List;

@@ -1,7 +1,6 @@
-package br.ueg.genero.service;
+package br.ueg.musica.service;
 
-import br.ueg.genero.model.GeneroModel;
-import br.ueg.genero.model.GeneroModel;
+import br.ueg.musica.model.GeneroModel;
 
 import java.util.List;
 

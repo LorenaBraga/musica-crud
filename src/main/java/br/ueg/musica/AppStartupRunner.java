@@ -1,11 +1,10 @@
 package br.ueg.musica;
 
-import br.ueg.genero.model.GeneroModel;
-import br.ueg.genero.service.GeneroService;
+import br.ueg.musica.model.GeneroModel;
+import br.ueg.musica.service.GeneroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Component

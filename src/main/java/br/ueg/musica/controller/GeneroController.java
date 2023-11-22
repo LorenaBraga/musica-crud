@@ -1,16 +1,15 @@
-package br.ueg.genero.controller;
+package br.ueg.musica.controller;
 
 
-import br.ueg.genero.dto.GeneroDto;
-import br.ueg.genero.mapper.GeneroMapper;
-import br.ueg.genero.model.GeneroModel;
-import br.ueg.genero.service.GeneroService;
-import br.ueg.musica.model.MusicaModel;
+import br.ueg.musica.dto.GeneroDto;
+import br.ueg.musica.mapper.GeneroMapper;
+import br.ueg.musica.model.GeneroModel;
+import br.ueg.musica.service.GeneroService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepositoryExtensionsKt;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

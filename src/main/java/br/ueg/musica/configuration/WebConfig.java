@@ -6,7 +6,7 @@
  *
  *
  */
-package br.ueg.musica.api.configuration;
+package br.ueg.musica.configuration;
 
 
 import br.ueg.musica.api.config.ApiWebConfig;
