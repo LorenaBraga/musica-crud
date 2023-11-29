@@ -1,5 +1,7 @@
 package br.ueg.admin.model;
 
+import br.ueg.admin.model.enums.StatusAtivoInativo;
+import br.ueg.admin.model.enums.StatusAtivoInativoConverter;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,6 +24,10 @@ public class ModuloModel implements Serializable {
 
     @Column(name = "mnemonico_modulo", length = 40, nullable = false)
     private String mnemonico;
+
+    @Convert(converter = StatusAtivoInativoConverter.class)
+    @Column(name = "status", nullable = false, length = 1)
+    private StatusAtivoInativo status;
 
     @OneToMany(mappedBy = "moduloSistema", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<FuncionalidadeModel> funcionalidades;

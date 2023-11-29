@@ -1,12 +1,20 @@
 package br.ueg.admin.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.Set;
 
+@NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
-public class UsuarioDto {
-    private Long id;
+public class UsuarioDto implements Serializable {
+
+    private static final long serialVersionUID = -3145730384721847808L;
+
+    private String id;
 
     private String email;
 
@@ -16,5 +24,12 @@ public class UsuarioDto {
 
     private String nome;
 
+    private boolean status;
+
     private Set<UsuarioFuncionalidadeDto> funcionalidades;
+
+    public UsuarioDto(String id, String login) {
+        this.id = id;
+        this.login = login;
+    }
 }

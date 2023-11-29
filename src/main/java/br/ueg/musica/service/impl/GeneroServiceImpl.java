@@ -3,6 +3,7 @@ package br.ueg.musica.service.impl;
 import br.ueg.musica.model.GeneroModel;
 import br.ueg.musica.repository.GeneroRepository;
 import br.ueg.musica.service.GeneroService;
+import br.ueg.prog.webi.api.service.BaseCrudService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,18 +11,20 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-public class GeneroServiceImpl implements GeneroService {
+public class GeneroServiceImpl extends BaseCrudService<GeneroModel, Long, GeneroRepository> implements GeneroService {
 
-
-    @Autowired
-    private GeneroRepository generoRepository;
     @Override
-    public void incluir(GeneroModel generoModel) {
-        this.validarCamposObrigatorios(generoModel);
-        generoRepository.save(generoModel);
+    protected void prepararParaIncluir(GeneroModel entidade) {
+
     }
 
-    private void validarCamposObrigatorios(GeneroModel generoModel) {
+    @Override
+    protected void validarDados(GeneroModel generoModel) {
+
+    }
+
+    @Override
+    protected void validarCamposObrigatorios(GeneroModel generoModel) {
         if (Objects.isNull(generoModel)) {
             throw new IllegalArgumentException("Campo precisa ser preenchida");
         }
@@ -30,28 +33,5 @@ public class GeneroServiceImpl implements GeneroService {
                     "Campo nome não foi preenchido"
             );
         }
-    }
-
-    @Override
-    public GeneroModel alterar(GeneroModel generoModel) {
-        this.pesquisarGeneroOuGeraErro(generoModel.getId());
-        this.validarCamposObrigatorios(generoModel);
-        return generoRepository.save(generoModel);
-    }
-
-    @Override
-    public GeneroModel excluir(Long idGenero) {
-        GeneroModel excluirGenero = this.pesquisarGeneroOuGeraErro(idGenero);
-        this.generoRepository.delete(excluirGenero);
-        return excluirGenero;
-    }
-
-    @Override
-    public List<GeneroModel> listar() {return  generoRepository.findAll();
-    }
-
-    @Override
-    public GeneroModel pesquisarGeneroOuGeraErro(Long idGenero) {
-        return generoRepository.findById(idGenero).orElseThrow(() -> new IllegalArgumentException("Genero não encontrado"));
     }
 }

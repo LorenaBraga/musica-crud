@@ -17,30 +17,13 @@ import java.util.*;
 @Service
 public class MusicaServiceImpl extends BaseCrudService<MusicaModel, Long, MusicaRepository> implements MusicaService {
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
-    @Autowired
-    private EntityManager entityManager;
-
-    @Autowired
-    private MusicaRepository musicaRepository;
-
-    public MusicaModel incluir(MusicaModel musicaModel) {
-        this.validarCamposObrigatorios(musicaModel);
-        musicaRepository.save(musicaModel);
-        return musicaModel;
-    }
-
     @Override
     protected void prepararParaIncluir(MusicaModel entidade) {
 
     }
 
     @Override
-    protected void validarDados(MusicaModel entidade) {
-
-    }
-
-    public void validarCamposObrigatorios(MusicaModel musica) {
+    protected void validarDados(MusicaModel musica) {
         if (Objects.isNull(musica)) {
             throw new IllegalArgumentException("Campo precisa ser preenchida");
         }
@@ -66,51 +49,31 @@ public class MusicaServiceImpl extends BaseCrudService<MusicaModel, Long, Musica
                             String.join(",", campoVazio) + ")"
             );
         }
-
     }
 
     @Override
-    public MusicaModel alterar(MusicaModel musicaModel) {
-        this.pesquisarMusicaOuGeraErro(musicaModel.getId());
-        this.validarCamposObrigatorios(musicaModel);
-        return musicaRepository.save(musicaModel);
+    protected void validarCamposObrigatorios(MusicaModel entidade) {
+
     }
 
-    @Override
-    public MusicaModel excluir(Long idMusica) {
-        MusicaModel excluirMusica = this.pesquisarMusicaOuGeraErro(idMusica);
-        this.musicaRepository.delete(excluirMusica);
-        return excluirMusica;
-    }
-
-    @Override
-    public List<MusicaModel> listar() {
-        return musicaRepository.findAll();
-    }
-
-    public MusicaModel pesquisarMusicaOuGeraErro(Long idMusica) {
-        MusicaModel musicaModel = musicaRepository.findById(idMusica).orElseThrow(() -> new IllegalArgumentException("Música não encontrada"));
-        return musicaModel;
-    }
 
     public MusicaModel favoritarMusica (Long idMusica) {
-        MusicaModel musicaModel = pesquisarMusicaOuGeraErro(idMusica);
+        MusicaModel musicaModel = obterPeloId(idMusica);
         musicaModel.setFavorito(musicaModel.getFavorito() == null || !musicaModel.getFavorito());
-        return musicaRepository.save(musicaModel);
+        return super.alterar(musicaModel, idMusica);
     }
 
     @Override
     public List<MusicasFavoritasGeneroDto> listarFavoritas() {
-        Map<Long, MusicasFavoritasGeneroDto> map = new HashMap<>();
-        StringBuilder jpql = new StringBuilder();
-        jpql.append(" SELECT musica from MusicaModel musica");
-        jpql.append(" JOIN musica.genero genero");
-        jpql.append(" WHERE musica.favorito = true");
+        Optional<List<MusicaModel>> musicasFavoritas = repository.listarFavoritas();
 
-        TypedQuery<MusicaModel> query = entityManager.createQuery(jpql.toString(), MusicaModel.class);
-        List<MusicaModel> musicas = query.getResultList();
-        if (musicas != null && !musicas.isEmpty()) {
-            for (MusicaModel musica : musicas) {
+        if (!musicasFavoritas.isPresent())
+            return new ArrayList<>();
+
+        Map<Long, MusicasFavoritasGeneroDto> map = new HashMap<>();
+
+        if (musicasFavoritas != null && !musicasFavoritas.isEmpty()) {
+            for (MusicaModel musica : musicasFavoritas.get()) {
                 if (!map.containsKey(musica.getGenero().getId()))
                     map.put(musica.getGenero().getId(), new MusicasFavoritasGeneroDto(musica));
 
