@@ -1,8 +1,9 @@
 package br.ueg.musica.service;
 
-import br.ueg.admin.mapper.UsuarioMapper;
-import br.ueg.admin.model.UsuarioModel;
-import br.ueg.admin.service.UsuarioService;
+import adminmodule.mapper.UsuarioMapper;
+import adminmodule.model.Usuario;
+import adminmodule.service.GrupoService;
+import adminmodule.service.UsuarioService;
 import br.ueg.prog.webi.api.dto.CredencialDTO;
 import br.ueg.prog.webi.api.dto.UsuarioSenhaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +18,30 @@ public class UserProviderService implements br.ueg.prog.webi.api.service.UserPro
     private UsuarioService usuarioService;
 
     @Autowired
+    private GrupoService grupoService;
+
+    @Autowired
     private UsuarioMapper usuarioMapper;
     @Override
     public CredencialDTO getCredentialByLogin(String username) {
-        UsuarioModel byLogin = this.usuarioService.getByLogin(username);
+        Usuario byLogin = this.usuarioService.getByLogin(username);
         CredencialDTO credencialDTO = this.usuarioMapper.toCredentialDTO(byLogin);
-//        credencialDTO.setRoles(grupoService.getRolesByUsuario(byLogin.getId()));
+        credencialDTO.setRoles(grupoService.getRolesByUsuario(byLogin.getId()));
         return credencialDTO;
+    }
+
+    private static CredencialDTO getCredencialDTO() {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        String senhaCodificada = bCryptPasswordEncoder.encode("admin");
+        return CredencialDTO.builder()
+                .login("admin")
+                .id(1L)
+                .nome("Admin")
+                .email("admin@admin.com.br")
+                .roles(Arrays.asList("ROLE_ADMIN", "ROLE_TIPO_INCLUIR"))
+                .statusAtivo(true)
+                .senha(senhaCodificada)
+                .build();
     }
 
     @Override

@@ -1,11 +1,10 @@
 package br.ueg.musica.dto;
 
-import br.ueg.musica.model.MusicaModel;
+import br.ueg.musica.model.Musica;
 import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Data
 public class MusicasFavoritasGeneroDto {
@@ -14,7 +13,7 @@ public class MusicasFavoritasGeneroDto {
 
     private List<MusicasFavoritasDto> musicasfavoritas = new ArrayList<>();
 
-    public MusicasFavoritasGeneroDto(MusicaModel musicaModel) {
+    public MusicasFavoritasGeneroDto(Musica musicaModel) {
         setNome(musicaModel.getGenero().getNome());
     }
 

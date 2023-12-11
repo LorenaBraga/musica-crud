@@ -2,28 +2,25 @@ package br.ueg.musica.service.impl;
 
 import br.ueg.musica.dto.MusicasFavoritasDto;
 import br.ueg.musica.dto.MusicasFavoritasGeneroDto;
-import br.ueg.musica.model.MusicaModel;
+import br.ueg.musica.model.Musica;
 import br.ueg.musica.repository.MusicaRepository;
 import br.ueg.musica.service.MusicaService;
 import br.ueg.prog.webi.api.service.BaseCrudService;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.TypedQuery;
 import org.apache.logging.log4j.util.Strings;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
-public class MusicaServiceImpl extends BaseCrudService<MusicaModel, Long, MusicaRepository> implements MusicaService {
+public class MusicaServiceImpl extends BaseCrudService<Musica, Long, MusicaRepository> implements MusicaService {
 
     @Override
-    protected void prepararParaIncluir(MusicaModel entidade) {
+    protected void prepararParaIncluir(Musica entidade) {
 
     }
 
     @Override
-    protected void validarDados(MusicaModel musica) {
+    protected void validarDados(Musica musica) {
         if (Objects.isNull(musica)) {
             throw new IllegalArgumentException("Campo precisa ser preenchida");
         }
@@ -52,20 +49,20 @@ public class MusicaServiceImpl extends BaseCrudService<MusicaModel, Long, Musica
     }
 
     @Override
-    protected void validarCamposObrigatorios(MusicaModel entidade) {
+    protected void validarCamposObrigatorios(Musica entidade) {
 
     }
 
 
-    public MusicaModel favoritarMusica (Long idMusica) {
-        MusicaModel musicaModel = obterPeloId(idMusica);
+    public Musica favoritarMusica (Long idMusica) {
+        Musica musicaModel = obterPeloId(idMusica);
         musicaModel.setFavorito(musicaModel.getFavorito() == null || !musicaModel.getFavorito());
         return super.alterar(musicaModel, idMusica);
     }
 
     @Override
     public List<MusicasFavoritasGeneroDto> listarFavoritas() {
-        Optional<List<MusicaModel>> musicasFavoritas = repository.listarFavoritas();
+        Optional<List<Musica>> musicasFavoritas = repository.listarFavoritas();
 
         if (!musicasFavoritas.isPresent())
             return new ArrayList<>();
@@ -73,7 +70,7 @@ public class MusicaServiceImpl extends BaseCrudService<MusicaModel, Long, Musica
         Map<Long, MusicasFavoritasGeneroDto> map = new HashMap<>();
 
         if (musicasFavoritas != null && !musicasFavoritas.isEmpty()) {
-            for (MusicaModel musica : musicasFavoritas.get()) {
+            for (Musica musica : musicasFavoritas.get()) {
                 if (!map.containsKey(musica.getGenero().getId()))
                     map.put(musica.getGenero().getId(), new MusicasFavoritasGeneroDto(musica));
 

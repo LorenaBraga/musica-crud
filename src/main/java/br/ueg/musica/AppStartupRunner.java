@@ -1,6 +1,6 @@
 package br.ueg.musica;
 
-import br.ueg.admin.service.InicializarService;
+import adminmodule.service.InicializarService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,27 +28,11 @@ public class AppStartupRunner implements ApplicationRunner {
     @Autowired
     private InicializarService inicializarService;
 
-//    public void initDados(){
-//
-//        Tipo t1 = new Tipo();
-//        t1.setNome("Tipo1");
-//        t1.setDataCriacao(LocalDate.now());
-//        t1.setStatus(StatusAtivoInativo.ATIVO);
-//        tipoRepository.save(t1);
-//
-//        t1 = new Tipo();
-//        t1.setNome("Tipo2");
-//        t1.setDataCriacao(LocalDate.now());
-//        t1.setStatus(StatusAtivoInativo.INATIVO);
-//        tipoRepository.save(t1);
-//    }
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
         try {
-//            this.initDados();
             this.inicializarService.inicializar();
-//            this.inicializarShareKeysService.inicializar();
         }catch (Exception e){
             e.printStackTrace();
         }

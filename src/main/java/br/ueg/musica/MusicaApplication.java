@@ -1,6 +1,6 @@
 package br.ueg.musica;
 
-import br.ueg.admin.service.InicializarService;
+import adminmodule.service.InicializarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -12,32 +12,19 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication(scanBasePackages = {
 		"br.ueg.musica.*",
-		"br.ueg.admin.*",
+		"adminmodule.*",
 		"br.ueg.prog.webi.api.*", "br.ueg.prog.webi.*"
 })
 @EnableJpaRepositories(basePackages = {
 		"br.ueg.musica.*",
-		"br.ueg.admin.*"
+		"adminmodule.*"
 })
 @EntityScan(basePackageClasses = {
-		Jsr310JpaConverters.class }, basePackages = { "br.ueg.musica.*", "br.ueg.admin.*"})
-public class MusicaApplication implements ApplicationRunner {
-
-	@Autowired
-	private InicializarService inicializarService;
+		Jsr310JpaConverters.class }, basePackages = { "br.ueg.musica.*", "adminmodule.*"})
+public class MusicaApplication extends AppStartupRunner {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MusicaApplication.class, args);
 	}
 
-	@Override
-	public void run(ApplicationArguments args) throws Exception {
-		try {
-//            this.initDados();
-			this.inicializarService.inicializar();
-//            this.inicializarShareKeysService.inicializar();
-		}catch (Exception e){
-			e.printStackTrace();
-		}
-	}
 }
