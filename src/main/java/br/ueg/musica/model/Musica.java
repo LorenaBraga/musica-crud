@@ -1,6 +1,7 @@
 package br.ueg.musica.model;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 import br.ueg.prog.webi.api.interfaces.ISearchFieldData;
 import br.ueg.prog.webi.api.model.BaseEntidade;
@@ -43,6 +44,17 @@ class Musica extends BaseEntidade <Long> implements Persistable<Long>, ISearchFi
     @JoinColumn(name = "id_genero", referencedColumnName = "id_genero", nullable = false,
     foreignKey = @ForeignKey(name = "Fk_GENERO_MUSICA"))
     private Genero genero;
+
+    public Musica(String banda, String musica, String album, long i, LocalDate now, boolean favorito, Genero genero) {
+        setNomeBanda(banda);
+        setNomeMusica(musica);
+        setNomeAlbum(album);
+        setDuracao(i);
+        setDataLancamento(now);
+        setGenero(genero);
+        setFavorito(favorito);
+    }
+
 
     @Override
     public String getTabelaNome() {

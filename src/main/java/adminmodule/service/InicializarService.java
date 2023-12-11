@@ -5,6 +5,10 @@ import adminmodule.model.enums.StatusAtivoInativo;
 import adminmodule.repository.GrupoRepository;
 import adminmodule.repository.ModuloSistemaRepository;
 import adminmodule.repository.UsuarioRepository;
+import br.ueg.musica.model.Genero;
+import br.ueg.musica.model.Musica;
+import br.ueg.musica.repository.GeneroRepository;
+import br.ueg.musica.repository.MusicaRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +32,10 @@ public class InicializarService {
     private ModuloSistemaRepository moduloSistemaRepository;
     @Autowired
     private UsuarioRepository usuarioRepository;
+    @Autowired
+    private GeneroRepository generoRepository;
+    @Autowired
+    private MusicaRepository musicaRepository;
 
     public void inicializar(){
         LOG.info("initiateDemoInstance");
@@ -45,6 +53,37 @@ public class InicializarService {
         Grupo grupo = createGrupoAdmin(Arrays.asList(moduloUsuario, moduloGrupo));
 
         createUsuarioAdmin(grupo);
+
+        List<Genero> generos = createGeneros();
+
+        createMusica(generos);
+    }
+
+    private List<Genero> createGeneros() {
+        List<String> listaGenero = Arrays.asList("Rock", "Pop", "Indie");
+        for (String s : listaGenero) {
+            generoRepository.save(new Genero(s));
+        }
+
+        return generoRepository.findAll();
+    }
+
+    private void createMusica(List<Genero> generos) {
+        Map<String, Genero> mapGeneros = new HashMap<>();
+        generos.forEach(genero -> mapGeneros.putIfAbsent(genero.getNome(), genero));
+
+        musicaRepository.save(new Musica("Linkin Park", "Numb", "Numb", 42, LocalDate.now(), true, mapGeneros.get("Rock")));
+        musicaRepository.save(new Musica("Evanescence", "Bring Me To Life", "Evanescence", 123, LocalDate.now(), true, mapGeneros.get("Rock")));
+        musicaRepository.save(new Musica("Nickelback", "How You Remind Me", "Nickelback", 412, LocalDate.now(), false,mapGeneros.get("Rock")));
+        musicaRepository.save(new Musica("Green Day", "Boulevard Of Broken Dreams", "Green Day", 53, LocalDate.now(), true, mapGeneros.get("Rock")));
+        musicaRepository.save(new Musica("Brynn Elliott", "Terrified", "Terrified", 61, LocalDate.now(), true, mapGeneros.get("Pop")));
+        musicaRepository.save(new Musica("Harry Styles", "As It Was", "Harry Styles", 123, LocalDate.now(), false, mapGeneros.get("Pop")));
+        musicaRepository.save(new Musica("The Weeknd", "Save Your Tears", "The Weeknd", 53, LocalDate.now(), true, mapGeneros.get("Pop")));
+        musicaRepository.save(new Musica("Maroon 5", "Girls Like You", "Maroon 5", 221, LocalDate.now(), false, mapGeneros.get("Pop")));
+        musicaRepository.save(new Musica("The Lumineers", "Sleep On The Floor", "The Lumineers", 52, LocalDate.now(), true, mapGeneros.get("Indie")));
+        musicaRepository.save(new Musica("Ghost", "Mary On A Cross", "Ghost", 123, LocalDate.now(), true, mapGeneros.get("Indie")));
+        musicaRepository.save(new Musica("Lana Del Rey", "Brooklyn Baby", "Lana Del Rey", 53, LocalDate.now(), true, mapGeneros.get("Indie")));
+        musicaRepository.save(new Musica("Pink Floyd", "Wish You Were Here", "Pink Floyd", 412, LocalDate.now(), true, mapGeneros.get("Indie")));
     }
 
     private ModuloSistema createModuloCrud(String moduloMNemonico, String moduloNome) {

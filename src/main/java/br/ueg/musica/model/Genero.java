@@ -32,6 +32,10 @@ class Genero extends BaseEntidade<Long> implements ISearchFieldData<Long> {
     @Builder.Default
     private Set<Musica> musicas = new HashSet<>();
 
+    public Genero(String s) {
+        nome = s;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
